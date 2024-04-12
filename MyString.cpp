@@ -11,7 +11,7 @@ MyString::MyString(int lenght)
 	if (lenght > 0)
 	{
 		this->length = lenght;
-		this->str = nullptr;
+		this->str = new char[this->length];
 		countObj++;
 	}
 }
@@ -28,11 +28,11 @@ MyString::MyString(char* s)
 			}
 		}
 		this->str = new char[this->length+1];
-		for (int i = 0; i < this->length+1; i++)
+		for (int i = 0; i < this->length; i++)
 		{
 			this->str[i] = s[i];
 		}
-		this->str[this->length+1] = '\0';
+		this->str[this->length] = '\0';
 		countObj++;
 	}
 }
@@ -65,12 +65,18 @@ MyString::~MyString()
 //•	методы для ввода строк с клавиатуры и вывода строк на экран.
 void MyString::input()
 {
+	if (this->str != nullptr)
+	{
+		delete[] str;
+	}
 	int count = 0;
 	int const mesSize = 100;
 	char newMes[mesSize];
 	cout << "Enter message!" << endl;
 	cin.getline(newMes, mesSize - 1);
-	for (int i = 0; i<this->length; i++)
+
+	// пересмотреть
+	for (int i = 0; i<mesSize; i++)
 	{
 		if (newMes[i] != '\0')
 		{
@@ -151,7 +157,16 @@ int MyString::getCountObj()
 //•	bool MyStrStr(const char* str);// поиск подстроки в строке
 bool MyString::MyStrStr(const char* str)
 {
-	return false;
+	for (int i = 0; this->str[i] != '\0'; ++i) {
+		int j = 0;
+		while (str[j] != '\0' && this->str[i + j] == str[j]) {
+			++j;
+		}
+		if (str[j] == '\0') {
+			return true; // Подстрока найдена
+		}
+	}
+	return false; // Подстрока не найдена
 }
 
 //•	int  MyChr(char c); // поиск символа в строке(индекс найденного символа, либо -1)
@@ -170,18 +185,18 @@ int MyString::MyChr(char c)
 //•	void MyStrCat(MyString& b); // объединение строк
 void MyString::MyStrCat(MyString& str)
 {
-	int newLength = this->length + str.length;
+	int newLength = this->length + str.length+2;
 	char* newStr = new char[newLength];
 	for (int i = 0; i < this->length; i++)
 	{
 		newStr[i] = this->str[i];	
 	}
 	newStr[this->length] = ' ';
-	for (int i = this->length+1; i < newLength; i++)
+	for (int i = this->length+1,j = 0; j < str.length; i++, j++)
 	{
-		newStr[i] = str.str[i];
+		newStr[i] = str.str[j];
 	}
-	newStr[newLength] = '\0';
+	newStr[newLength-1] = '\0';
 	this->length = newLength;
 	delete[] this->str;
 	this->str = newStr;

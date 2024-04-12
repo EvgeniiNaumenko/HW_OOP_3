@@ -41,6 +41,13 @@ int main()
 	char serchChar2 = 'b'; // искомый символ
 	cout<<"index of search char (if -1 no char in str): "<<str2.MyChr(serchChar)<<endl; // ищем символ
 	cout << "index of search char (if -1 no char in str): " << str2.MyChr(serchChar2)<<endl; // ищем символ
+	char newStr[] = "World!";// слово для обьеденения
+	MyString str5 = newStr;
+	char newStr2[] = "World"; // слово для поиска
+	str2.MyStrCat(str5);
+	str5.output();
+	str2.output();
+	cout << str5.MyStrStr(newStr2) << endl; //поиск подстроки в строке если 1 то нашло если 0 то ненашло
 	cout << " OBJ: " << MyString::getCountObj();
 	return 0;
 }

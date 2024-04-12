@@ -48,6 +48,15 @@ int main()
 	str5.output();
 	str2.output();
 	cout << str5.MyStrStr(newStr2) << endl; //поиск подстроки в строке если 1 то нашло если 0 то ненашло
-	cout << " OBJ: " << MyString::getCountObj();
+	cout << " OBJ: " << MyString::getCountObj()<<endl;
+	//выведем длинну
+	cout<<str.MyStrLen() <<endl;
+	cout << str2.MyStrLen() << endl;
+	cout << str3.MyStrLen() << endl;
+	cout << str4.MyStrLen() << endl;
+	cout << str5.MyStrLen() << endl;
+	//удалим символ
+	str5.MyDelChr('o');//удаляем символ
+	str5.output();
 	return 0;
 }

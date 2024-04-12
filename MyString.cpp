@@ -213,7 +213,7 @@ void MyString::MyDelChr(char c)
 			counter++;
 		}
 	}
-	int newLength = this->length -counter;
+	int newLength = this->length -counter+1;
 	char* newStr = new char[newLength];
 	for (int i = 0,j=0; i < this-> length; i++)
 	{
@@ -223,7 +223,7 @@ void MyString::MyDelChr(char c)
 			j++;
 		}
 	}
-	newStr[newLength] = '\0';
+	newStr[newLength-1] = '\0';
 	this->length = newLength;
 	delete[] this->str;
 	this->str = newStr;
